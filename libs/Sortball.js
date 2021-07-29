@@ -147,6 +147,7 @@ function setAnimation() {
     setMap()
     addEvent();
     if (tutorial) renderTutorial()
+    gameWin()
 
 }
 var bottleBase, ballBase
@@ -468,12 +469,12 @@ function gameWin() {
     var win1 = new createjs.Sprite(spriteSheet, "win1");
     win1.scale = stage.canvas.width / win1.getBounds().width
     win1.x = stage.canvas.width
-    win1.y = stage.canvas.height / 9
+    win1.y = stage.canvas.height / 12
 
     var win2 = new createjs.Sprite(spriteSheet, "win2");
     win2.scale = stage.canvas.width / win2.getBounds().width
     win2.x = -win2.getBounds().width * win2.scale
-    win2.y = stage.canvas.height / 9.7
+    win2.y = stage.canvas.height / 12.8
 
     var cup = new createjs.Sprite(spriteSheet, "img_cup");
     cup.scale = (stage.canvas.width / 4) / cup.getBounds().width
@@ -489,7 +490,7 @@ function gameWin() {
     var btn_next = new createjs.Sprite(spriteSheet, "btn_next");
     btn_next.scale = ((stage.canvas.width / 2) / cup.getBounds().width) * 0.9
     btn_next.x = - btn_next.getBounds().width * btn_next.scale
-    btn_next.y = cup.y + cup.getBounds().height * ((stage.canvas.width / 2) / cup.getBounds().width)
+    btn_next.y = cup.y + cup.getBounds().height * ((stage.canvas.width / 2) / cup.getBounds().width)*1.3
 
     stage.addChild(particle, win1, win2, eff_cup, cup, btn_next)
     createjs.Tween.get(win1)
@@ -508,7 +509,7 @@ function gameWin() {
         .to({
             scale: (stage.canvas.width / 2) / cup.getBounds().width,
             x: (stage.canvas.width - cup.getBounds().width * ((stage.canvas.width / 2) / cup.getBounds().width)) / 2,
-            y: win2.y + cup.getBounds().height * ((stage.canvas.width / 2) / cup.getBounds().width)
+            y: win2.y + cup.getBounds().height * ((stage.canvas.width / 2) / cup.getBounds().width) *1.2
         }, 200, createjs.Ease.linear)
         .call(() => {
             eff_cup.alpha = 1

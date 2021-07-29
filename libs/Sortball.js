@@ -379,6 +379,7 @@ function moveBallChoose() {
     listBottle[oldChoose].status = true
     var distance = getDistance({ x: ball.x, y: ball.y }, { x: x0, y: y0 })
     var time = distance / speed
+    console.log(time);
     createjs.Tween.get(ball)
         .to({ x: x0, y: y0 }, time, createjs.Ease.linear)
         // .wait(100)

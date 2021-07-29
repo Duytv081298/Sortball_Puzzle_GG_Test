@@ -27,6 +27,16 @@ var map = [
 // ]
 var listBottle = []
 function changeOrientation(event) {
+    if (tutorial) clearTutorial()
+    removeEvent()
+    stage.removeAllChildren()
+    listBottle = []
+    setStage();
+    setBackground()
+    setMap()
+    if (!complete) gameWin()
+    else addEvent();
+    if (tutorial) renderTutorial()
 }
 async function gameinit() {
     createjs.RotationPlugin.install();
@@ -48,9 +58,10 @@ function setStage() {
     height = window.innerHeight
         || document.documentElement.clientHeight
         || document.body.clientHeight;
+    console.log({ width: width, height: height });
 
     if (width >= height || !isMobile) width = height / 1.7;
-
+    console.log({ width: width, height: height });
     radiusMask = width / 22
 
     canvas = document.getElementById("myCanvas");
@@ -144,7 +155,8 @@ function setAnimation() {
     setBackground()
     setMap()
     addEvent();
-    renderTutorial()
+    if (tutorial) renderTutorial()
+
 }
 var bottleBase, ballBase
 function setBackground() {
@@ -286,7 +298,7 @@ function convertColor(color) {
 
 function addEvent() {
     stage.addEventListener("stagemousedown", onMouseDown);
-    // window.addEventListener('resize', reportWindowSize);
+    window.addEventListener('resize', changeOrientation);
 }
 var listBottleA = [], listBottleB = [];
 function onMouseDown(evt) {
@@ -339,7 +351,7 @@ function currentMouse(evt) {
     return { x: evt.stageX, y: evt.stageY }
 }
 function upBallChoose() {
-    clearTutorial()
+    if (tutorial) clearTutorial()
     var indexChoose = listBottleA[listBottleA.length - 1]
     var ball = listBottle[indexChoose].listBall[0]
     var y = indexChoose < 3 ? bottleBase.startY[0] - ballBase.height * 1.2 : bottleBase.startY[1] - ballBase.height * 1.2
@@ -533,7 +545,7 @@ function stopAudio() {
     snd.pause();
     snd.currentTime = 0;
 }
-var index0 = 3, index1 = 5, ballTemp = null, hand_tut;
+var index0 = 3, index1 = 5, ballTemp = null, hand_tut, tutorial = true;
 function renderTutorial() {
     // var color = map[index0][map[index0].lastIndexOf(-1) + 1]
     var ball = listBottle[index0].listBall[0]
@@ -585,6 +597,7 @@ function renderTutorial() {
         .wait(2000)
 }
 function clearTutorial() {
+    tutorial = false;
     createjs.Tween.removeTweens(hand_tut);
     createjs.Tween.removeTweens(ballTemp);
     createjs.Tween.removeTweens(listBottle[index0].listBall[0]);

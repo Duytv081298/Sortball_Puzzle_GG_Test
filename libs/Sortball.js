@@ -154,7 +154,7 @@ function setBackground() {
     bg.scaleX = stage.canvas.width / bg.getBounds().width;
     bg.scaleY = stage.canvas.height / bg.getBounds().height;
 
-    var textTop = new createjs.Text('FREE & EASY TO PLAY', "22px Verdana", "#ffffff");
+    var textTop = new createjs.Text('FREE & EASY TO PLAY', "bold 22px Verdana", "#ffffff");
     textTop.scale = (stage.canvas.width * 2 / 3) / textTop.getMeasuredWidth()
     textTop.x = (stage.canvas.width - textTop.getMeasuredWidth() * textTop.scale) / 2
     textTop.y = stage.canvas.height / 10

@@ -7,7 +7,7 @@ var containerMain = new createjs.Container()
 
 var complete = false
 var install_now;
-
+var speed;
 
 var map = [
     [1, 12, 11, 11],
@@ -209,6 +209,14 @@ function setBackground() {
         startY1: [dy1 - heightBall * 4, dy1 - heightBall * 3, dy1 - heightBall * 2, dy1 - heightBall],
         startY2: [dy2 - heightBall * 4, dy2 - heightBall * 3, dy2 - heightBall * 2, dy2 - heightBall],
     }
+
+    var x0 = ballBase.startX[0],
+        y0 = bottleBase.startY[0] - ballBase.height * 1.2,
+        x1 = ballBase.startX[1],
+        y1 = bottleBase.startY[0] - ballBase.height * 1.2
+    // console.log({ x0: x0, y0: y0, x1: x1, y1: y1 });
+    var distance = getDistance({ x: x0, y: y0 }, { x: x1, y: y1 })
+    speed = distance / 100
 }
 function setMap() {
     for (let i = 0; i < map.length; i++) {
@@ -369,14 +377,15 @@ function moveBallChoose() {
     var target = listBottle[oldChoose].listBall.shift();
     listBottle[newChoose].listBall.unshift(target)
     listBottle[oldChoose].status = true
-
+    var distance = getDistance({ x: ball.x, y: ball.y }, { x: x0, y: y0 })
+    var time = distance / speed
     createjs.Tween.get(ball)
-        .to({ x: x0, y: y0 }, 200, createjs.Ease.linear)
-        .wait(100)
+        .to({ x: x0, y: y0 }, time, createjs.Ease.linear)
+        // .wait(100)
         .call(() => {
             snd.play()
             createjs.Tween.get(ball)
-                .to({ y: y1 }, 400, createjs.Ease.bounceOut)
+                .to({ y: y1 }, 600, createjs.Ease.bounceOut)
                 .call(() => {
                     listBottle[newChoose].status = true
                     if (checkCompleteItem(map[newChoose])) boottlePass(x0, y0 + ballBase.height * 1.2)
@@ -433,7 +442,7 @@ function boottlePass(x, y) {
         confetti = null;
         complete = checkWin()
 
-        console.log(complete);
+        // console.log(complete);
         // gameWin()
     }
 }

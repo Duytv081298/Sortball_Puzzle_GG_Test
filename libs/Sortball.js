@@ -145,6 +145,7 @@ function setAnimation() {
     setMap()
     addEvent();
     renderTutorial()
+    gameWin()
 }
 var bottleBase, ballBase
 function setBackground() {
@@ -494,7 +495,7 @@ function gameWin() {
 
 
     var btn_next = new createjs.Sprite(spriteSheet, "btn_next");
-    btn_next.scale = ((stage.canvas.width / 3.5) / btn_next.getBounds().width)
+    btn_next.scale = ((stage.canvas.width / 3) / btn_next.getBounds().width)
     btn_next.x = - btn_next.getBounds().width * btn_next.scale
     btn_next.y = cup.y + cup.getBounds().height * ((stage.canvas.width / 2) / cup.getBounds().width) * 1.3
 
@@ -530,7 +531,7 @@ function gameWin() {
             }, 200, createjs.Ease.linear)
             .call(() => {
                 createjs.Tween.get(btn_next, { loop: true, bounce: true })
-                    .to({ scale: cup.scale + 0.01, }, 350, createjs.Ease.linear)
+                    .to({ scale: btn_next.scale + 0.1, }, 350, createjs.Ease.linear)
             })
     }, 400);
     btn_next.addEventListener("click", () => { getLinkInstall() }, false);

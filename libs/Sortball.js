@@ -145,7 +145,6 @@ function setAnimation() {
     setMap()
     addEvent();
     renderTutorial()
-    gameWin()
 }
 var bottleBase, ballBase
 function setBackground() {
